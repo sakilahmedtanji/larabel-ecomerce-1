@@ -1,4 +1,3 @@
-
 @extends('admin.master')
 
 
@@ -6,117 +5,198 @@
     <main class="app-mainhphp">
         <!--begin::App Content Header-->
         <div class="app-content-header">
-          <!--begin::Container-->
-          <div class="container-fluid">
-            <!--begin::Row-->
-            
-            <!--end::Row-->
-          </div>
-          <!--end::Container-->
+            <!--begin::Container-->
+            <div class="container-fluid">
+                <!--begin::Row-->
+
+                <!--end::Row-->
+            </div>
+            <!--end::Container-->
         </div>
         <!--end::App Content Header-->
         <!--begin::App Content-->
         <div class="app-content">
-          <!--begin::Container-->
-          <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row g-4">
-              <!--begin::Col-->
-              <div class="col-12">
-                
-              </div>
-              <!--end::Col-->
-              <!--begin::Col-->
-              <div class="col-md-12">
-                <!--begin::Quick Example-->
-                <div class="card card-primary card-outline mb-4">
-                  <!--begin::Header-->
-                  <div class="card-header">
-                    <div class="card-title">Product add</div>
-                  </div>
-                  <!--end::Header-->
-                  <!--begin::Form-->
-                  <form method="POST" action="{{url('/product/product-manage/post')}}" enctype="multipart/form-data">
-                    @csrf
-                    <!--begin::Body-->
-                    <div class="card-body">
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Catagory name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
-                      </div>
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Catagory name</label>
-                        <input type="text" class="form-control" id="cat_id" name="cat_id" />
-                      </div>
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Catagory name</label>
-                        <input type="text" class="form-control" id="subcat_id" name="subcat_id" />
-                      </div>
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Catagory name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
-                      </div>
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Catagory name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
-                      </div>
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Catagory name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
-                      </div>
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Catagory name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
-                      </div>
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Catagory name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
-                      </div>
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Catagory name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
-                      </div>
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Catagory name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
-                      </div>
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Catagory name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
-                      </div>
+            <!--begin::Container-->
+            <div class="container-fluid">
+                <!--begin::Row-->
+                <div class="row g-4">
+                    <!--begin::Col-->
+                    <div class="col-12">
 
-                      <div class="input-group mb-3">
-                        <input type="file" class="form-control" name="image" id="inputGroupFile02" accept="image/*" required/>
-                        <label class="input-group-text" for="inputGroupFile02">Upload</label>
-                      </div>
-                      
                     </div>
-                    <!--end::Body-->
-                    <!--begin::Footer-->
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-primary">Submit</button>
+                    <!--end::Col-->
+                    <!--begin::Col-->
+                    <div class="col-md-12">
+                        <!--begin::Quick Example-->
+                        <div class="card card-primary card-outline mb-4">
+                            <!--begin::Header-->
+                            <div class="card-header">
+                                <div class="card-title">Product add</div>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Form-->
+                            <form method="POST" action="{{ url('/product/product-manage/post') }}"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <!--begin::Body-->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12 col-12">
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label"><b>Catagory name</b></label>
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                    required />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12 col-12">
+                                            <div class="mb-3">
+                                                <label for="sku_code" class="form-label"><b>Product SKU Code
+                                                        (optional)</b></label>
+                                                <input type="text" class="form-control" id="sku_code" name="sku_code" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label"><b>Select Category</b></label>
+
+                                                <select name="cat_id" id="cat_id" required class="form-control"
+                                                    required>
+                                                    @foreach ($catagories as $catagory)
+                                                        <option value="{{ $catagory->id }}">
+                                                            {{ $catagory->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">
+                                                    <b>Select Sub Category (Optional)</b>
+                                                </label>
+
+                                                <select name="subcat_id" id="subcat_id" class="form-control">
+                                                    @foreach ($subcatagories as $subcatagory)
+                                                        <option value="{{ $subcatagory->id }}">
+                                                            {{ $subcatagory->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-6 col-6">
+                                            <div class="mb-3">
+                                                <label for="regular_price" class="form-label"><b>Regular price</b></label>
+                                                <input type="Number" class="form-control" id="regular_price"
+                                                    name="regular_price" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 col-6">
+                                            <div class="mb-3">
+                                                <label for="discount_price" class="form-label"><b>Discount price</b></label>
+                                                <input type="Number" class="form-control" id="discount_price"
+                                                    name="discount_price" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 col-6">
+                                            <div class="mb-3">
+                                                <label for="buying_price" class="form-label"><b>Buying price</b></label>
+                                                <input type="Number" class="form-control" id="buying_price"
+                                                    name="buying_price" required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12 col-12">
+                                            <div class="mb-3">
+                                                <label for="qty" class="form-label"><b>Product quantity</b></label>
+                                                <input type="number" class="form-control" id="qty" name="qty"
+                                                    required />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-sm-12 col-12">
+                                            <div class="mb-3">
+                                                <label for="product_type" class="form-label"><b>Product Type
+                                                    </b></label>
+                                                <select name="product_type" id="product_type" class="form-control">
+                                                    <option value="Hot">Hot product</option>
+                                                    <option value="Discount">Discount product</option>
+                                                    <option value="New">New product</option>
+                                                    <option value="Regular">Regular product</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-12 col-12">
+                                        <div class="mb-3">
+                                            <label for="blog_details" class="form-label">Product details</label>
+                                            <textarea name="description" id="summernote" cols="30" rows="10" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="mb-3">
+                                            <label for="blog_details" class="form-label">Product Policy</label>
+                                            <textarea name="product_polic" id="summernote_two" cols="30" rows="10" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control" name="image" id="inputGroupFile02"
+                                            accept="image/*" required />
+                                        <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                                    </div>
+
+                                </div>
+                                <!--end::Body-->
+                                <!--begin::Footer-->
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                                <!--end::Footer-->
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Quick Example-->
+                        <!--begin::Input Group-->
+
+                        <!--end::Input Group-->
+                        <!--begin::Horizontal Form-->
+
+                        <!--end::Horizontal Form-->
                     </div>
-                    <!--end::Footer-->
-                  </form>
-                  <!--end::Form-->
+                    <!--end::Col-->
+                    <!--begin::Col-->
+
+                    <!--end::Col-->
                 </div>
-                <!--end::Quick Example-->
-                <!--begin::Input Group-->
-                
-                <!--end::Input Group-->
-                <!--begin::Horizontal Form-->
-               
-                <!--end::Horizontal Form-->
-              </div>
-              <!--end::Col-->
-              <!--begin::Col-->
-              
-              <!--end::Col-->
+                <!--end::Row-->
             </div>
-            <!--end::Row-->
-          </div>
-          <!--end::Container-->
+            <!--end::Container-->
         </div>
         <!--end::App Content-->
-     
-@endsection
+    @endsection
+    @push('java')
+        <script>
+            $(document).ready(function() {
+                $('#summernote').summernote();
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('#summernote_two').summernote();
+            });
+        </script>
+    @endpush

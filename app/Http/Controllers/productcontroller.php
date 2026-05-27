@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\subcatagory;
 use Illuminate\Http\Request;
 
 class productcontroller extends Controller
 {
     public function create(){
-        return view('admin.product.productadd');
+        $catagories = Category::orderby('name','asc')->get();
+        $subcatagories = subcatagory::orderby('name','asc')->get();
+        return view('admin.product.productadd',compact('subcatagories','catagories'));
     }
 }

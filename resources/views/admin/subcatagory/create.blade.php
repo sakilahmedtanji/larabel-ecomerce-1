@@ -1,89 +1,87 @@
-
 @extends('admin.master')
 
-
 @section('maincontent')
-    <main class="app-mainhphp">
-        <!--begin::App Content Header-->
-        <div class="app-content-header">
-          <!--begin::Container-->
-          <div class="container-fluid">
-            <!--begin::Row-->
-            
-            <!--end::Row-->
-          </div>
-          <!--end::Container-->
-        </div>
-        <!--end::App Content Header-->
-        <!--begin::App Content-->
-        <div class="app-content">
-          <!--begin::Container-->
-          <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row g-4">
-              <!--begin::Col-->
-              <div class="col-12">
-                
-              </div>
-              <!--end::Col-->
-              <!--begin::Col-->
-              <div class="col-md-12">
-                <!--begin::Quick Example-->
-                <div class="card card-primary card-outline mb-4">
-                  <!--begin::Header-->
-                  <div class="card-header">
-                    <div class="card-title">Sub Catagory</div>
-                  </div>
-                  <!--end::Header-->
-                  <!--begin::Form-->
-                  <form method="POST" action="{{url('/product/subcatagory-manage/post')}}" enctype="multipart/form-data">
-                    @csrf
-                    <!--begin::Body-->
-                    <div class="card-body">
-                        <div class="mb-3">
-                        <label for="catagoryname" class="form-label"> Select Sub Catagory </label>
-                        <select name="cat_id" id="cat_id" required class="form-control">
-                            @foreach ($catagory as  $catagories)
-                                <option value="{{$catagories->id}}">{{$catagories->name}}</option>
-                            @endforeach
-                            
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label for="catagoryname" class="form-label">Sub Catagory name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
-                      </div>
-                      
-                      <div class="card-body">
-                      
-                      
-                    </div>
-                    <!--end::Body-->
-                    <!--begin::Footer-->
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                    <!--end::Footer-->
-                  </form>
-                  <!--end::Form-->
+<main class="app-main py-4">
+    <div class="app-content-header mb-4">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <h3 class="mb-0 text-dark fw-bold">Sub-Category Management</h3>
                 </div>
-                <!--end::Quick Example-->
-                <!--begin::Input Group-->
-                
-                <!--end::Input Group-->
-                <!--begin::Horizontal Form-->
-               
-                <!--end::Horizontal Form-->
-              </div>
-              <!--end::Col-->
-              <!--begin::Col-->
-              
-              <!--end::Col-->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-end mb-0 bg-transparent p-0">
+                        <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Sub-Category</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Create</li>
+                    </ol>
+                </div>
             </div>
-            <!--end::Row-->
-          </div>
-          <!--end::Container-->
         </div>
-        <!--end::App Content-->
-     
+    </div>
+    <div class="app-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-12">
+                    
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm" role="alert">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    <div class="card shadow-sm border-0 rounded-3">
+                        <div class="card-header bg-white border-bottom py-3 d-flex align-items-center">
+                            <div class="icon-shape bg-primary-soft text-primary me-2 rounded-2 p-2">
+                                <i class="bi bi-folder-plus fs-5"></i>
+                            </div>
+                            <h5 class="card-title mb-0 fw-semibold text-secondary">Create Sub-Category</h5>
+                        </div>
+                        
+                        <form method="POST" action="{{ url('/product/subcatagory-manage/post') }}" enctype="multipart/form-data" novalidate>
+                            @csrf
+                            
+                            <div class="card-body p-4">
+                                
+                                <div class="mb-4">
+                                    <label for="cat_id" class="form-label fw-medium text-secondary">
+                                        Select Parent Category <span class="text-danger">*</span>
+                                    </label>
+                                    <select name="cat_id" id="cat_id" class="form-select shadow-none" required>
+                                        <option value="" disabled selected>Choose Main Category...</option>
+                                        @foreach ($catagory as $catagories)
+                                            <option value="{{ $catagories->id }}" {{ old('cat_id') == $catagories->id ? 'selected' : '' }}>
+                                                {{ $catagories->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <small class="text-muted mt-1 d-block">Map this sub-category under a primary group.</small>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="name" class="form-label fw-medium text-secondary">
+                                        Sub-Category Name <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control shadow-none" id="name" name="name" 
+                                           value="{{ old('name') }}" placeholder="e.g. Wireless Headphones" required />
+                                </div>
+                                
+                            </div>
+                            <div class="card-footer bg-light p-3 d-flex justify-content-end gap-2">
+                                <button type="reset" class="btn btn-light border fw-medium px-4">Reset</button>
+                                <button type="submit" class="btn btn-primary fw-medium px-4 shadow-sm">
+                                    <i class="bi bi-plus-lg me-1"></i> Save Sub-Category
+                                </button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    </main>
 @endsection
