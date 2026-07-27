@@ -41,7 +41,7 @@ class logincontroller extends Controller
         
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password  ])){
             
-            if(auth::user()->role== 'customer'){
+            if(Auth::user()->role== 'customer'){
                 return redirect('/customer/dashboard');
             }
             else{
@@ -71,7 +71,7 @@ class logincontroller extends Controller
         $customer -> name = $request -> name;
         $customer -> email = $request -> email;
         $customer -> phone = $request -> phone;
-        $customer -> password = Hash::make($request->passeword);
+        $customer -> password = Hash::make($request->password);
         $customer -> role= 'customer';
         $customer -> save();
         return redirect('/customer/login');

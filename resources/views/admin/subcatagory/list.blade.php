@@ -49,7 +49,7 @@
                                                 {{ $category->name }}
                                             </td>
                                             <td>
-                                                {{ $category->catagory->name }}
+                                                {{ $category->name }}
                                             </td>
                                             <td>
 

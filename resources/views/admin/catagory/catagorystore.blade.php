@@ -37,7 +37,7 @@
                                 </div>
                                 <h5 class="card-title mb-0 fw-semibold text-secondary">Primary Categories</h5>
                             </div>
-                            <a href="{{ url('/product/catagory-manage/create') }}" class="btn btn-primary btn-sm fw-medium px-3 shadow-sm">
+                            <a href="{{ url('/product/catagory-manage') }}" class="btn btn-primary btn-sm fw-medium px-3 shadow-sm">
                                 <i class="bi bi-plus-lg me-1"></i> Add New Category
                             </a>
                         </div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +41,32 @@ class customercontroller extends Controller
         $authuser->save();
         return redirect()->back();
     }
+
+    public function cradential(){
+        $authuser= Auth::user();
+       return view('customer.customerc',compact('authuser'));
+
+    }
+    public function cradentialupdate(Request $request){
+        $authuserid= Auth::user()->id;  
+        $authuser= User::find($authuserid);
+
+         if(isset($request->email)){
+            $authuser->email= $request->email;
+        }
+        if(isset($request->old_password) && ($request->password)){
+            if(Hash::check($request->old_password,$authuser->password)){
+                $authuser->password = Hash::make($request->password);
+            }
+            else{
+                return redirect()->back();
+            }
+            
+        }
+        $authuser->save();
+        Auth::logout();
+        return redirect()->back();
+        }
 }
 
 //  

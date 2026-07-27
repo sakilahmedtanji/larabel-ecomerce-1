@@ -1,191 +1,249 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    
-    <!-- Bootstrap 5 CSS -->
+    <title>Customer Login</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts (Poppins) -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        :root {
-            --primary-color: #6c5ce7;
-            --secondary-color: #a29bfe;
-            --bg-dark: #0a0a0b;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --border-color: rgba(255, 255, 255, 0.1);
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Outfit',sans-serif;
         }
 
-        body {
-            background-color: var(--bg-dark);
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            color: #fff;
-            background-image: radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.05) 0%, transparent 40%),
-                              radial-gradient(circle at 90% 80%, rgba(162, 155, 254, 0.05) 0%, transparent 40%);
+        body{
+            min-height:100vh;
+            background:#0f172a;
+            overflow:hidden;
         }
 
-        .home-btn {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            color: #aaa;
-            text-decoration: none;
-            font-size: 0.9rem;
-            border: 1px solid var(--border-color);
-            padding: 8px 18px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+        .wrapper{
+            display:flex;
+            min-height:100vh;
         }
 
-        .home-btn:hover {
-            background: #fff;
-            color: #000;
-            transform: translateX(5px);
+        .left-panel{
+            width:50%;
+            position:relative;
+            background:linear-gradient(135deg,#4f46e5,#7c3aed);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:60px;
+            overflow:hidden;
         }
 
-        .login-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 45px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        .left-panel::before,
+        .left-panel::after{
+            content:'';
+            position:absolute;
+            border-radius:50%;
+            filter:blur(80px);
         }
 
-        h2 {
-            font-weight: 600;
-            margin-bottom: 8px;
-            text-align: center;
-            background: linear-gradient(to right, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .left-panel::before{
+            width:250px;
+            height:250px;
+            background:rgba(255,255,255,.2);
+            top:-50px;
+            left:-50px;
         }
 
-        p.subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 0.85rem;
-            margin-bottom: 30px;
+        .left-panel::after{
+            width:350px;
+            height:350px;
+            background:rgba(255,255,255,.12);
+            bottom:-100px;
+            right:-100px;
         }
 
-        .form-label {
-            font-size: 0.8rem;
-            color: #aaa;
-            margin-left: 5px;
+        .brand-content{
+            color:#fff;
+            z-index:1;
+            max-width:420px;
         }
 
-        .form-control {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-color);
-            color: #fff;
-            border-radius: 12px;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            transition: 0.3s;
+        .brand-content h1{
+            font-size:3rem;
+            font-weight:700;
+            margin-bottom:20px;
         }
 
-        .form-control:focus {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
-            color: #fff;
+        .brand-content p{
+            font-size:1rem;
+            line-height:1.8;
+            opacity:.9;
         }
 
-        .btn-signin {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            border-radius: 12px;
-            padding: 12px;
-            color: #fff;
-            font-weight: 600;
-            width: 100%;
-            margin-top: 15px;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px -5px rgba(108, 92, 231, 0.4);
+        .right-panel{
+            width:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:30px;
+            background:#020617;
         }
 
-        .btn-signin:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-            box-shadow: 0 15px 25px -5px rgba(108, 92, 231, 0.5);
+        .login-box{
+            width:100%;
+            max-width:420px;
         }
 
-        .bottom-links {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 25px;
-            font-size: 0.82rem;
+        .back-link{
+            display:inline-block;
+            color:#94a3b8;
+            text-decoration:none;
+            margin-bottom:30px;
         }
 
-        .bottom-links a {
-            color: #888;
-            text-decoration: none;
-            transition: 0.3s;
+        .back-link:hover{
+            color:#fff;
         }
 
-        .bottom-links a:hover {
-            color: var(--primary-color);
+        .login-box h2{
+            color:#fff;
+            font-size:2rem;
+            font-weight:700;
+            margin-bottom:10px;
         }
 
-        .register-link {
-            color: var(--secondary-color) !important;
-            font-weight: 600;
+        .login-box p{
+            color:#94a3b8;
+            margin-bottom:30px;
+        }
+
+        .form-control{
+            background:#0f172a;
+            border:1px solid #1e293b;
+            color:#fff;
+            height:55px;
+            border-radius:14px;
+            padding:0 18px;
+        }
+
+        .form-control:focus{
+            background:#0f172a;
+            color:#fff;
+            border-color:#6366f1;
+            box-shadow:0 0 0 .25rem rgba(99,102,241,.15);
+        }
+
+        .form-label{
+            color:#cbd5e1;
+            margin-bottom:8px;
+        }
+
+        .btn-login{
+            width:100%;
+            height:55px;
+            border:none;
+            border-radius:14px;
+            background:linear-gradient(135deg,#6366f1,#8b5cf6);
+            color:#fff;
+            font-weight:600;
+            margin-top:10px;
+            transition:.3s;
+        }
+
+        .btn-login:hover{
+            transform:translateY(-2px);
+            box-shadow:0 15px 30px rgba(99,102,241,.3);
+        }
+
+        .bottom-text{
+            text-align:center;
+            color:#94a3b8;
+            margin-top:25px;
+        }
+
+        .bottom-text a{
+            color:#8b5cf6;
+            text-decoration:none;
+            font-weight:600;
+        }
+
+        @media(max-width:992px){
+
+            .left-panel{
+                display:none;
+            }
+
+            .right-panel{
+                width:100%;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <a href="/" class="home-btn">← Back to Home</a>
+<div class="wrapper">
 
-    <div class="login-card">
-        <h2>Welcome Back</h2>
-        <p class="subtitle">Please enter your details to sign in</p>
-
-        <form id="loginForm" method="POST" action="{{url('/customer/loginauth')}}">
-            
-           @csrf
-
-            <div class="mb-3">
-                <label class="form-label">Email Address</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter Your Email" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" placeholder="••••••••" required>
-            </div>
-
-            <button type="submit" class="btn btn-signin" id="submitBtn">Sign In</button>
-        </form>
-
-        <div class="bottom-links">
-            <a href="/forgot-password">Forgot Password?</a>
-            <span>New here? <a href="{{url('/customer/register')}}" class="register-link">Create Account</a></span>
+    <div class="left-panel">
+        <div class="brand-content">
+            <h1>Welcome Back!</h1>
+            <p>
+                Sign in to access your account, track orders, manage your profile
+                and enjoy a seamless shopping experience.
+            </p>
         </div>
     </div>
 
-    <!-- JS -->
-    <script>
-        const loginForm = document.getElementById('loginForm');
-        const submitBtn = document.getElementById('submitBtn');
+    <div class="right-panel">
 
-        loginForm.addEventListener('submit', function() {
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Checking...';
-        });
-    </script>
+        <div class="login-box">
+
+            <a href="/" class="back-link">← Back to Home</a>
+
+            <h2>Sign In</h2>
+            <p>Enter your email and password to continue.</p>
+
+            <form id="loginForm" method="POST" action="{{ url('/customer/loginauth') }}">
+                @csrf
+
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="btn-login" id="submitBtn">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="bottom-text">
+                Don't have an account?
+                <a href="{{ url('/customer/register') }}">Create Account</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const loginForm = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    loginForm.addEventListener('submit', function() {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML =
+            '<span class="spinner-border spinner-border-sm"></span> Signing In...';
+    });
+</script>
 
 </body>
 </html>
+```

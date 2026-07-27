@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\cart;
+use App\Models\settings;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+      View::composer('*',function ($view){
+        $view->with('allsettings', settings::first());
+        $view->with('cartdetailsall', cart::where('ip_adress',request()->ip())->get());
+        $view->with('productcount', cart::where('ip_adress',request()->ip())->count());
+      });
     }
 }
