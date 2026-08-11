@@ -23,22 +23,20 @@
             </a>
         </li>
 
-        <li class="nav-title text-uppercase text-muted fw-bold my-2 tracking-wider ps-3" style="font-size: 0.65rem; opacity: 0.5; list-style: none;">
-            Account Directory
-        </li>
+       
 
         <li class="nav-group mb-1 {{ Request::is('customer/pages*') ? 'show' : '' }}">
             <a class="nav-link nav-group-toggle d-flex align-items-center rounded-2 px-3 py-2.5 text-secondary-light" href="#">
                 <i class="bi bi-layers-half fs-5 me-3 opacity-75"></i>
-                <span class="fw-medium fs-6">Authentication</span>
+                <span class="fw-medium fs-6">Orders</span>
             </a>
             
             <ul class="nav-group-items compact list-unstyled ps-4 mt-1">
                 <li class="nav-item mb-1">
                     <a class="nav-link d-flex align-items-center rounded-2 px-3 py-2 text-secondary-light transition-all" 
-                       href="#" style="font-size: 0.88rem;">
+                       href="{{ url('/order-manage/all ') }}" style="font-size: 0.88rem;">
                         <i class="bi bi-box-arrow-in-right fs-6 me-2.5 opacity-75"></i>
-                        <span>Login Account</span>
+                        <span>All orders</span>
                     </a>
                 </li>
             </ul>

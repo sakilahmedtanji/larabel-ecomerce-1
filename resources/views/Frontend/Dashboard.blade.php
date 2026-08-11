@@ -11,19 +11,23 @@
                     <div class="col-lg-3 col-md-4 col-12">
                         <div class="card border-0 shadow-sm">
                             <ul class="list-group list-group-flush header__category-list rounded">
+                                @foreach($globalcategory as $categorys)
                                 <li class="list-group-item header__category-list-item item-has-submenu p-3">
-                                    <a href="{{url('/catagory-products')}}" class="text-decoration-none text-dark d-flex align-items-center gap-2 fw-medium">
-                                        <img src="{{asset('frontend/assets/images/product.png')}}" alt="category" style="width: 20px; height: 20px;">
-                                        Test Category
+                                    <a href="{{url('/catagory-products/'.$categorys->slug)}}" class="text-decoration-none text-dark d-flex align-items-center gap-2 fw-medium">
+                                        <img src="{{$categorys->image}}" alt="category" style="width: 20px; height: 20px;">
+                                        {{$categorys->name}}
                                     </a>
                                     <ul class="header__nav-item-category-submenu list-unstyled ps-3 mt-2 small">
+                                        @foreach($categorys->subcatagory as $subcategory)
                                         <li class="header__category-submenu-item">
-                                            <a href="{{url('/subcatagory-products')}}" class="text-decoration-none text-muted">
-                                                Test Subcategory
+                                            <a href="{{url('/subcatagory-products/'.$subcategory->slug)}}" class="text-decoration-none text-muted">
+                                                {{$subcategory->name}}
                                             </a>
                                         </li>
+                                        @endforeach
                                     </ul>
                                 </li>
+                               @endforeach
                             </ul>
                         </div>
                     </div>
@@ -52,7 +56,7 @@
                             // slug সরিয়ে id দিয়ে প্রোডাক্ট সংখ্যা কাউন্ট করা হলো
                             $loops = App\Models\Product::where('cat_id', $item->id)->count();
                         @endphp
-                        <a href="{{url('/category-products/'.$item->slug)}}" class="text-decoration-none text-center d-block bg-white p-3 rounded shadow-sm mx-1 border text-dark">
+                        <a href="{{url('/catagory-products/'.$item->slug)}}" class="text-decoration-none text-center d-block bg-white p-3 rounded shadow-sm mx-1 border text-dark">
                             <img src="{{ $item->image }}" alt="category" class="mx-auto mb-2 rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" />
                             <h6 class="mb-1 text-truncate fw-bold">{{ $item->name }}</h6>
                             <span class="text-muted small d-block">{{ $loops }} items</span>
@@ -90,7 +94,7 @@
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2 class="h4 mb-0 fw-bold text-dark">Hot Products</h2>
-                    <a href="{{url('/type-products')}}" class="btn btn-sm btn-outline-dark px-3 rounded-pill">View All</a>
+                    <a href="{{url('/type-products/hot')}}" class="btn btn-sm btn-outline-dark px-3 rounded-pill">View All</a>
                 </div>
                 <div class="row g-3">
                     @foreach ($hotproducts as $product)
@@ -128,7 +132,7 @@
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2 class="h4 mb-0 fw-bold text-dark">New Products</h2>
-                    <a href="/type-products" class="btn btn-sm btn-outline-dark px-3 rounded-pill">View All</a>
+                    <a href="/type-products/new" class="btn btn-sm btn-outline-dark px-3 rounded-pill">View All</a>
                 </div>
                 <div class="row g-3">
                     @foreach ($newproducts as $item)
@@ -166,7 +170,7 @@
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2 class="h4 mb-0 fw-bold text-dark">Regular Products</h2>
-                    <a href="/type-products" class="btn btn-sm btn-outline-dark px-3 rounded-pill">View All</a>
+                    <a href="/type-products/regular" class="btn btn-sm btn-outline-dark px-3 rounded-pill">View All</a>
                 </div>
                 <div class="row g-3">
                     @foreach ($regularproducts as $regularproduct)
@@ -208,7 +212,7 @@
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2 class="h4 mb-0 fw-bold text-dark">Discount Products</h2>
-                    <a href="/type-products" class="btn btn-sm btn-outline-dark px-3 rounded-pill">View All</a>
+                    <a href="/type-products/discount/discount" class="btn btn-sm btn-outline-dark px-3 rounded-pill">View All</a>
                 </div>
                 <div class="row g-3">
                     @foreach ($discountproducts as $item)

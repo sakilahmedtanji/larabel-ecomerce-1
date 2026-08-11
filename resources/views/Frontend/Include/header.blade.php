@@ -2,10 +2,11 @@
     <div class="container">
         <div class="header-top-wrapper">
             <a href="{{ url('/') }}" class="brand-logo-outer">
-                <img src="{{ $allsettings->logo }}" alt="Logo">
+                <img src="{{ optional($allsettings)->logo }}" alt="Logo">
             </a>
             <div class="search-form-outer">
-                <form action="" method="GET" class="form-group search-form">
+                <form action="{{ url('/search-products') }}" method="GET" class="form-group search-form">
+                    @csrf
                     <input type="text" name="search" class="form-control" placeholder="Search for items...">
                     <button type="submit"><i class="fas fa-search"></i></button>
                 </form>
@@ -106,20 +107,25 @@
                         </div>
                         <div class="header__category-items-outer">
                             <ul class="header__category-list">
+                                @foreach($globalcategory as $category)
                                 <li class="header__category-list-item item-has-submenu">
-                                    <a href="{{ url('/catagory-products') }}" class="header__category-list-item-link">
-                                        <img src="{{ asset('frontend/assets/images/product.png') }}" alt="category">
-                                        Test Category
+                                    <a href="{{ url('/catagory-products/'.$category->slug) }}" class="header__category-list-item-link">
+                                        <img src="{{ $category->image }}" alt="category">
+                                        {{$category->name}}
                                     </a>
                                     <ul class="header__nav-item-category-submenu">
+                                        @foreach($category->subcatagory as $subcategory)
                                         <li class="header__category-submenu-item">
-                                            <a href="{{ url('/subcatagory-products') }}"
+                                            <a href="{{ url('/subcatagory-products/'.$subcategory->slug) }}"
                                                 class="header__category-submenu-item-link">
-                                                Test Subcategory
+                                                
+                                                {{$subcategory->name}}
                                             </a>
                                         </li>
+                                        @endforeach
                                     </ul>
                                 </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -135,7 +141,7 @@
                             </a>
                         </li>
                         <li class="dynamic-page-list-item">
-                            <a href="{{ url('/productshop') }}" class="dynamic-page-list-item-link">
+                            <a href="{{ url('/product-shop') }}" class="dynamic-page-list-item-link">
                                 Shop
                             </a>
                         </li>

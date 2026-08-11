@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Models\cart;
 use App\Models\Category;
+use App\Models\subcatagory;
 use App\Models\contactmassage;
 use App\Models\order;
 use App\Models\orderdetails;
@@ -175,8 +176,20 @@ class  Homepagecontroller extends Controller
         return view('frontend.confirmation', compact('invoice_number'));
     }
    
-    public function shopproduct(){
-        return view('frontend.shop');
+    public function shopproduct(request $request){
+
+        if(isset($request->cat_id)){
+            
+            $product = product::orderBy('id','desc')->where('cat_id',$request->cat_id)->paginate(10);
+        }
+        elseif(isset($request->subcat_id)){
+            
+            $product = product::orderBy('id','desc')->where('subcat_id',$request->subcat_id)->paginate(10);
+        }
+        else{
+            $product = product::get();
+        }
+        return view('frontend.shop', compact('product'));
     }
     public function Privacypolicy(){
         $privacy = policysettings::select('privacy_policy')->first();
@@ -239,13 +252,22 @@ class  Homepagecontroller extends Controller
         return view('frontend.checkout');
     }
     
-    public function catagoryproducts(){
-        return view('frontend.catagory');
+    public function catagoryproducts($slug){
+        $category = Category::where('slug',$slug)->select('id')->first();
+        $product= product::where('cat_id',$category->id)->get();
+        return view('frontend.catagory', compact('product'));
     }
-    public function subcatagoryproducts(){
-        return view('frontend.subcatagory');
+    public function subcatagoryproducts($slug){
+        $subcategory = subcatagory::where('slug',$slug)->select('id')->first();
+        $products= product::where('cat_id',$subcategory->id)->get();
+        return view('frontend.subcatagory', compact('products'));
     }
-    public function typeproducts(){
-        return view('frontend.typeproduct');
+    public function typeproducts($type){
+        $product= product::where('product_type',$type)->orderBy('id', 'desc')->get();
+        return view('frontend.typeproduct', compact('product','type'));
+    }
+    public function searchproducts(request $request){
+        $product = product::where('name','like','%'.$request->search.'%')->get();
+        return view('frontend.searchproduct',compact('product'));
     }
 }

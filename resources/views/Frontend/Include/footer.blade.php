@@ -3,7 +3,7 @@
         <div class="container">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-4">
                 <a href="{{ url('/') }}" class="footer__brand-logo-outer d-inline-block">
-                    <img src="{{$allsettings->logo}}" class="footer__brand-logo-inner img-fluid" style="max-height: 50px;" alt="Store Logo" />
+                    <img src="{{$allsettings?->logo}}" class="footer__brand-logo-inner img-fluid" style="max-height: 50px;" alt="Store Logo" />
                 </a>
                 <div class="text-md-end text-center">
                     <h5 class="text-white mb-1 fw-bold">Subscribe to our Newsletter</h5>
@@ -56,21 +56,21 @@
                                 <i class="bi bi-geo-alt-fill text-primary mt-0.5"></i>
                                 <div>
                                     <span class="d-block fw-bold text-light mb-0.5" style="font-size: 0.75rem; opacity: 0.6;">Corporate Office:</span>
-                                    <span class="text-white-50">{{ $allsettings->adress }}</span>
+                                    <span class="text-white-50">{{ optional($allsettings)->address }}</span>
                                 </div>
                             </li>
                             <li class="footer__contact-info-list-item d-flex align-items-start gap-2.5 mb-3 fs-7">
                                 <i class="bi bi-telephone-fill text-primary mt-0.5"></i>
                                 <div>
                                     <span class="d-block fw-bold text-light mb-0.5" style="font-size: 0.75rem; opacity: 0.6;">Phone Support:</span>
-                                    <a href="tel:0123456857" class="text-decoration-none text-white-50 hover-text-white transition-all font-monospace">{{ $allsettings->phone }}</a>
+                                    <a href="tel:0123456857" class="text-decoration-none text-white-50 hover-text-white transition-all font-monospace">{{ $allsettings?->phone }}</a>
                                 </div>
                             </li>
                             <li class="footer__contact-info-list-item d-flex align-items-start gap-2.5 mb-3 fs-7">
                                 <i class="bi bi-envelope-fill text-primary mt-0.5"></i>
                                 <div>
                                     <span class="d-block fw-bold text-light mb-0.5" style="font-size: 0.75rem; opacity: 0.6;">Email Address:</span>
-                                    <a href="mailto:info@gmail.com" class="text-decoration-none text-white-50 hover-text-white transition-all">{{ $allsettings->email }}</a>
+                                    <a href="mailto:info@gmail.com" class="text-decoration-none text-white-50 hover-text-white transition-all">{{ $allsettings?->email }}</a>
                                 </div>
                             </li>
                         </ul>
@@ -115,22 +115,22 @@
                         <p class="small text-muted mb-3">Connect with our secure stream digital network handles handles.</p>
                         <ul class="footer__social-list list-unstyled d-flex align-items-center gap-2.5 ps-0">
                             <li>
-                                <a href="{{ $allsettings->facebook }}" class="rounded-circle bg-secondary bg-opacity-10 text-white-50 d-flex align-items-center justify-content-center text-decoration-none hover-social-fb transition-all" style="width: 38px; height: 38px;">
+                                <a href="{{ $allsettings?->facebook }}" class="rounded-circle bg-secondary bg-opacity-10 text-white-50 d-flex align-items-center justify-content-center text-decoration-none hover-social-fb transition-all" style="width: 38px; height: 38px;">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ $allsettings->twitter }}" class="rounded-circle bg-secondary bg-opacity-10 text-white-50 d-flex align-items-center justify-content-center text-decoration-none hover-social-tw transition-all" style="width: 38px; height: 38px;">
+                                <a href="{{ $allsettings?->twitter }}" class="rounded-circle bg-secondary bg-opacity-10 text-white-50 d-flex align-items-center justify-content-center text-decoration-none hover-social-tw transition-all" style="width: 38px; height: 38px;">
                                     <i class="fab fa-twitter"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ $allsettings->instagram }}" class="rounded-circle bg-secondary bg-opacity-10 text-white-50 d-flex align-items-center justify-content-center text-decoration-none hover-social-ig transition-all" style="width: 38px; height: 38px;">
+                                <a href="{{ $allsettings?->instagram }}" class="rounded-circle bg-secondary bg-opacity-10 text-white-50 d-flex align-items-center justify-content-center text-decoration-none hover-social-ig transition-all" style="width: 38px; height: 38px;">
                                     <i class="fab fa-instagram"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ $allsettings->youtube }}" class="rounded-circle bg-secondary bg-opacity-10 text-white-50 d-flex align-items-center justify-content-center text-decoration-none hover-social-yt transition-all" style="width: 38px; height: 38px;">
+                                <a href="{{ $allsettings?->youtube }}" class="rounded-circle bg-secondary bg-opacity-10 text-white-50 d-flex align-items-center justify-content-center text-decoration-none hover-social-yt transition-all" style="width: 38px; height: 38px;">
                                     <i class="fab fa-youtube"></i>
                                 </a>
                             </li>

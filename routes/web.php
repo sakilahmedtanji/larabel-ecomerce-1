@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[Homepagecontroller::class,'index']);
 Route::get('/product-details/{slug}',[Homepagecontroller::class,('productdetails')]);
-Route::get('/productshop',[Homepagecontroller::class,('shopproduct')]);
+Route::get('/product-shop',[Homepagecontroller::class,('shopproduct')]);
 Route::get('/Privacy-policy',[Homepagecontroller::class,('Privacypolicy')]);
 Route::get('/terms-condition',[Homepagecontroller::class,('termscondition')]);
 Route::get('/refund-policy',[Homepagecontroller::class,('refundpolicy')]);
@@ -28,9 +28,10 @@ Route::post('/contact/massage',[Homepagecontroller::class,('contact')]);
 Route::get('/view-cart',[Homepagecontroller::class,('viewcart')]);
 Route::get('/check-out',[Homepagecontroller::class,('checkout')]);
 Route::get('/order-confirmation/{invoice_id}',[Homepagecontroller::class,('orderconfirmation')]);
-Route::get('/catagory-products',[Homepagecontroller::class,('catagoryproducts')]);
-Route::get('/subcatagory-products',[Homepagecontroller::class,('subcatagoryproducts')]);
-Route::get('/type-products',[Homepagecontroller::class,('typeproducts')]);
+Route::get('/catagory-products/{slug}',[Homepagecontroller::class,('catagoryproducts')]);
+Route::get('/subcatagory-products/{slug}',[Homepagecontroller::class,('subcatagoryproducts')]);
+Route::get('/type-products/{type}',[Homepagecontroller::class,('typeproducts')]);
+Route::get('/search-products',[Homepagecontroller::class,('searchproducts')]);
 
 Route::get('/admin/login',[logincontroller::class,'adminlogin']);
 Route::post('/admin/loginauth',[logincontroller::class,'adminloginauth']);
@@ -43,7 +44,7 @@ Route::post('/customer/loginauth',[logincontroller::class,'customerloginauth']);
 Route::get('/customer/register',[logincontroller::class,'customerregister']);
 Route::post('/customer/register/store',[logincontroller::class,'customerregisterstore']);
 
-Route::post('/add-to-cart/{id}',[Homepagecontroller::class,('addcart')]);
+
 Route::get('/add-cart/{id}',[Homepagecontroller::class,('addcartshome')]);
 Route::get('/Delete-cart/{id}',[Homepagecontroller::class,('deletecart')]);
 
@@ -113,6 +114,9 @@ Route::middleware(['role:admin,employee'])->group(function(){
 Route::middleware(['role:employee'])->group(function(){
     Route::get('/employee/dashboard',[employeecontroller::class,'employeedashboard']);
     Route::get('/employee/logout',[employeecontroller::class ,'employeelogout']);
+
+    //order management
+    
 });
 
 Route::middleware(['role:customer'])->group(function(){
@@ -122,5 +126,7 @@ Route::middleware(['role:customer'])->group(function(){
     Route::post('/customer/profile-update',[customercontroller::class,'profileupdate']);
     Route::get('/customer/cradential',[customercontroller::class,'cradential']);
     Route::post('/customer/cradentialupdate',[customercontroller::class,'cradentialupdate']);
+    Route::get('/order-manage/{status}',[customercontroller::class,'customerorder']);
 });
+
 

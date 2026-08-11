@@ -67,6 +67,10 @@ class customercontroller extends Controller
         Auth::logout();
         return redirect()->back();
         }
+        
+    public function customerorder($status){
+        return view ('customer.orders.allorder');
+    }
 }
 
 //  
