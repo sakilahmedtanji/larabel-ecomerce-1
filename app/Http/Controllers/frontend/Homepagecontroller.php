@@ -28,69 +28,22 @@ class  Homepagecontroller extends Controller
     }
     public function productdetails($slug){
         $product = product::with('color','size','galaryimage','review')->where('slug',$slug)->first();
-        
-       
+        $related = product::where('cat_id',$product->cat_id)->where('id','!=',$product->id)->get();
         $detailscategory = Category::get();
         
-        return view('frontend.productdetails',compact('product','detailscategory'));
+        return view('frontend.productdetails',compact('product','detailscategory','related'));
         
     }
-    public function addcart(request $request ,$id){
+   
+
+    public function addcart(request $request, $id){
         $product = Product::find( $id );
         $addcart = cart::where('product_id',$product->id)->where('ip_adress',$request->ip())->first();
         if($addcart == null){
             $cart = new cart();
         $cart->product_id = $product->id;
-        $cart->size = $request->size;
         $cart->color = $request->color;
-        $cart->qty = $request-> qty;
-        if($product->discount_price != null){
-            $cart->price = $product->discount_price;
-        }
-        else{
-            $cart->price = $product->regular_price;
-        }
-        $cart->ip_adress = $request->ip();
-        if(Auth::check()){
-            $cart->user_id = Auth::user()->id;
-        }
-        $cart->save();
-        }
-        elseif($addcart != null){
-            
-        $addcart->size = $request->size;
-        $addcart->color = $request->color;
-        $addcart->qty = $request-> qty;
-
-        if($product->discount_price != null){
-            $addcart->price = $product->discount_price;
-        }
-        else{
-            $addcart->price = $product->regular_price;
-        }
-        
-        $addcart->save();
-        }
-        
-         toastr()->success('Product Cart successfully');
-        if($request->action == 'buyNow'){
-            return redirect('/check-out');
-            
-        }
-        else{
-            return redirect()->back();
-        }
-       
-
-    }
-
-    public function addcartshome(request $request, $id){
-        $product = Product::find( $id );
-        $addcart = cart::where('product_id',$product->id)->where('ip_adress',$request->ip())->first();
-        if($addcart == null){
-            $cart = new cart();
-        $cart->product_id = $product->id;
-
+        $cart->size = $request->size;
         $cart->qty = 1;
         if($product->discount_price != null){
             $cart->price = $product->discount_price;
@@ -252,11 +205,25 @@ class  Homepagecontroller extends Controller
         return view('frontend.checkout');
     }
     
-    public function catagoryproducts($slug){
-        $category = Category::where('slug',$slug)->select('id')->first();
-        $product= product::where('cat_id',$category->id)->get();
-        return view('frontend.catagory', compact('product'));
+    // public function catagoryproducts($slug){
+    //     $category = Category::where('slug',$slug)->select('id')->first();
+    //     $product= product::where('cat_id',$category->id)->get();
+    //     return view('frontend.catagory', compact('product'));
+    // }
+    public function catagoryproducts($slug)
+{
+    $category = Category::where('slug', $slug)
+        ->select('id')
+        ->first();
+
+    if (!$category) {
+        abort(404, 'Category not found');
     }
+
+    $product = Product::where('cat_id', $category->id)->get();
+
+    return view('frontend.catagory', compact('product'));
+}
     public function subcatagoryproducts($slug){
         $subcategory = subcatagory::where('slug',$slug)->select('id')->first();
         $products= product::where('cat_id',$subcategory->id)->get();

@@ -9,7 +9,7 @@
                     
                     <!-- ব্যাকএন্ডের জন্য হিডেন ইনপুট ফিল্ড (যাতে ডাটা কন্ট্রোলারে পৌঁছায়) -->
                     <input type="hidden" name="charge" id="hiddenDeliveryCharge" value="80">
-                    <input type="hidden" name="grandTotal" id="hiddenGrandTotal" value="0">
+                    
 
                     <div class="row g-4">
                         
@@ -137,7 +137,7 @@
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="fw-bold text-dark fs-5">Grand Total</span>
                                                 <span class="fw-bolder text-dark fs-4" id="grandTotal">৳ 0</span>
-                                                <input type="hidden"  id="gratotalpriceinput" name="gratotalpriceinput">
+                                                <input type="hidden" id="gratotalpriceinput" name="grandTotal" value="{{ $carttotal + 80 }}">
                                             </div>
                                         </div>
                                         
@@ -190,6 +190,9 @@
         document.getElementById('deliveryCharge').innerHTML = "৳"+80;
         document.getElementById('grandTotal').innerHTML = "৳"+grandTotal;
         document.getElementById('gratotalpriceinput').value = grandTotal;
+        document.addEventListener('DOMContentLoaded', function () {
+    insidedhaka();
+});
 
     }
    </script>

@@ -4,10 +4,11 @@ namespace App\Providers;
 
 use App\Models\cart;
 use App\Models\settings;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
 use App\Models\Category;
 use App\Models\subcatagory;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,12 +25,33 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-      View::composer('*',function ($view){
-        $view->with('allsettings', settings::first());
-        $view->with('cartdetailsall', cart::where('ip_adress',request()->ip())->get());
-        $view->with('productcount', cart::where('ip_adress',request()->ip())->count());
-        $view->with('globalcategory', Category::orderby('name','asc')->with('subcatagory')->get());
-        $view->with('globalsubcategory', subcatagory::orderby('name','asc')->get());
-      });
+        View::composer('*', function ($view) {
+            try {
+                // ডাটাবেজ কানেক্টেড থাকলে এবং টেবিলগুলো থাকলে ডাটা লোড হবে
+                if (Schema::hasTable('settings')) {
+                    $view->with('allsettings', settings::first());
+                }
+                if (Schema::hasTable('carts')) {
+                    $ip = request()->ip();
+                    $view->with('cartdetailsall', cart::where('ip_adress', $ip)->get());
+                    $view->with('productcount', cart::where('ip_adress', $ip)->count());
+                }
+                if (Schema::hasTable('categories')) {
+                    $view->with('globalcategory', Category::orderBy('name', 'asc')->with('subcatagory')->get());
+                }
+                if (Schema::hasTable('subcatagories')) {
+                    $view->with('globalsubcategory', subcatagory::orderBy('name', 'asc')->get());
+                }
+            } catch (\Throwable $e) {
+                // কোনো কারণে ডাটাবেজ ফেইল করলে যাতে এরর পেজ ক্র্যাশ না করে
+                $view->with([
+                    'allsettings' => null,
+                    'cartdetailsall' => collect(),
+                    'productcount' => 0,
+                    'globalcategory' => collect(),
+                    'globalsubcategory' => collect(),
+                ]);
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\ordercontroller;
 use App\Http\Controllers\admin\settingscontroller;
 use App\Http\Controllers\admincontroller;
 use App\Http\Controllers\catagorycontroller;
@@ -45,7 +46,8 @@ Route::get('/customer/register',[logincontroller::class,'customerregister']);
 Route::post('/customer/register/store',[logincontroller::class,'customerregisterstore']);
 
 
-Route::get('/add-cart/{id}',[Homepagecontroller::class,('addcartshome')]);
+Route::post('/add-cart/{id}',[Homepagecontroller::class,('addcart')]);
+// Route::post('/add-cart/{id}',[Homepagecontroller::class,('addcartshome')]);
 Route::get('/Delete-cart/{id}',[Homepagecontroller::class,('deletecart')]);
 
 Route::post('/order/confirm/',[Homepagecontroller::class,'order']);
@@ -56,10 +58,10 @@ Route::post('/order/confirm/',[Homepagecontroller::class,'order']);
 Auth::routes(['login'=>false,'register'=>false]);
 
 Route::middleware(['role:admin'])->group(function(){
-    Route::get('/admin/dashboard',[admincontroller::class,'admindashboard']);
-    Route::get('/admin/logout',[admincontroller::class ,'adminlogout']);
     
-    //catagory controller 
+    
+
+    //catagory controller
     Route::get('/product/catagory-manage', [catagorycontroller::class,'productcatagory']);
     Route::post('/product/catagory-manage/post',[catagorycontroller::class,'store']);
     Route::get('/product/catagory-manage/post/store',[catagorycontroller::class,'storehouse']);
@@ -67,7 +69,7 @@ Route::middleware(['role:admin'])->group(function(){
     Route::post('/product/catagory-manage/post/upate/{id}',[catagorycontroller::class,'update']);
     Route::get('/product/catagory-manage/post/delete/{id}',[catagorycontroller::class,'storedelete']);
 
-    //subcatagory controller 
+    //subcatagory controller
     Route::get('/product/subcatagory-manage', [subcatagorycontroller::class,'productcatagory']);
     Route::post('/product/subcatagory-manage/post',[subcatagorycontroller ::class,'store']);
     Route::get('/product/subcatagory-manage/post/store',[subcatagorycontroller ::class,'storehouse']);
@@ -75,7 +77,15 @@ Route::middleware(['role:admin'])->group(function(){
     Route::post('/product/subcatagory-manage/post/upate/{id}',[subcatagorycontroller ::class,'update']);
     Route::get('/product/subcatagory-manage/post/delete/{id}',[subcatagorycontroller ::class,'storedelete']);
 
-     //product controller 
+    
+
+
+});
+Route::middleware(['role:admin,employee'])->group(function(){
+    Route::get('/admin/dashboard',[admincontroller::class,'admindashboard']);
+    Route::get('/admin/logout',[admincontroller::class ,'adminlogout']);
+
+     //product controller
     Route::get('/product/product-add', [productcontroller::class,'create']);
     Route::post('/product/product-manage/post',[productcontroller ::class,'store']);
     Route::get('/product/product-manage/post/store',[productcontroller ::class,'storehouse']);
@@ -83,10 +93,6 @@ Route::middleware(['role:admin'])->group(function(){
     Route::post('/product/product-manage/post/upate/{id}',[productcontroller ::class,'update']);
     Route::get('/product/product-manage/post/delete/{id}',[productcontroller ::class,'storedelete']);
     Route::get('/product/status-change/{id}',[productcontroller ::class,'changestatus']);
-    
-
-});
-Route::middleware(['role:admin,employee'])->group(function(){
     //website settings
     Route::get('/website-settings',[settingscontroller::class,'websitesettings']);
     Route::post('/update/website-settings',[settingscontroller::class,'updatesetting']);
@@ -101,7 +107,7 @@ Route::middleware(['role:admin,employee'])->group(function(){
     Route::get('/customer-massage',[customermassagecontroller::class,'customermassage']);
     Route::get('/customer-massage/show/{id}',[customermassagecontroller::class,'massageshow']);
     Route::get('/customer-massage/delete/{id}',[customermassagecontroller::class,'massagedelete']);
-    
+
     // customer review
     Route::get('/review-add',[reviewcontroller::class,'reviewadd']);
     Route::post('/review/store',[reviewcontroller::class,'reviewstore']);
@@ -109,6 +115,23 @@ Route::middleware(['role:admin,employee'])->group(function(){
     Route::get('/review/edit/{id}',[reviewcontroller::class,'reviewedit']);
     Route::post('/review-update/{id}',[reviewcontroller::class,'reviewupdate']);
     Route::get('/customer-review/delete/{id}',[reviewcontroller::class,'massagedelete']);
+
+    //order management
+    Route::get('/order-management/{status}',[ordercontroller::class,'ordermanage']);
+    Route::get('/order-management/edit/{id}',[ordercontroller::class,'orderedit']);
+    Route::post('/order-management/update/{id}',[ordercontroller::class,'orderupdate']);
+    Route::post('/order-management/product-update/{id}',[ordercontroller::class,'orderproductupdate']);
+    Route::get('/order-management/delete/{id}',[ordercontroller::class,'orderdelete']);
+    Route::get('/order-curier/update/{order_id}',[ordercontroller::class,'curierupdate']);
+    Route::post('/order-status/update/{id}',[ordercontroller::class,'statusupdate']);
+    Route::post('/order-curier/add/{id}',[ordercontroller::class,'curieradd']);
+    Route::post('/bulk-order-print',[ordercontroller::class,'bulkorderprint']);
+    
+
+    //developer contact
+    Route::get('/developer-contact',[admincontroller::class,'developercontact']);
+
+
 });
 
 Route::middleware(['role:employee'])->group(function(){
@@ -116,7 +139,7 @@ Route::middleware(['role:employee'])->group(function(){
     Route::get('/employee/logout',[employeecontroller::class ,'employeelogout']);
 
     //order management
-    
+
 });
 
 Route::middleware(['role:customer'])->group(function(){
@@ -127,6 +150,7 @@ Route::middleware(['role:customer'])->group(function(){
     Route::get('/customer/cradential',[customercontroller::class,'cradential']);
     Route::post('/customer/cradentialupdate',[customercontroller::class,'cradentialupdate']);
     Route::get('/order-manage/{status}',[customercontroller::class,'customerorder']);
+    Route::get('/order-cancel/{id}',[customercontroller::class,'ordercancel']);
 });
 
 

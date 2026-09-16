@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\orderdetails;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
     use HasFactory;
-    
+
     protected $guarded=[];
     public function category (){
         return $this->belongsTo(Category::class,'cat_id','id');
@@ -30,5 +30,8 @@ class Product extends Model
     }
      public function carts(){
         return $this->hasMany(cart::class , 'product_id','id');
+    }
+    public function orderdetails(){
+        return $this->hasMany(orderdetails::class , 'product_id','id');
     }
 }

@@ -27,7 +27,7 @@ class logincontroller extends Controller
     }
     public function employeeloginauth(Request $request ){
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password  ])){
-            return redirect('/employee/dashboard');
+            return redirect('/admin/dashboard');
         }
         else{
             return redirect()->back();

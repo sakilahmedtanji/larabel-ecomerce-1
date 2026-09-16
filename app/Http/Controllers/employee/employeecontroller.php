@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 class employeecontroller extends Controller
 {
      public function Employeedashboard(){
-        return view('employee.employee-dashboard');
+        // return view('employee.employee-dashboard');
+        return view ('/admin/dashboard');
     }
     public function Employeelogout(){
         Auth::logout();
